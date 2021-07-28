@@ -1,4 +1,5 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import {
@@ -21,6 +22,7 @@ const LoginPage = () => {
   const [values, setValues] = useState<FormState>(initialFormState);
   const { error } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
+  const history = useHistory();
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setValues({
       ...values,
@@ -66,7 +68,14 @@ const LoginPage = () => {
               margin: '20px 0',
             }}
           >
-            <Button>Login</Button>
+            <Button type='submit'>Login</Button>
+            <Button
+              type='button'
+              onClick={() => history.push('/signup')}
+              style={{ backgroundColor: '#56CCF2' }}
+            >
+              Signup
+            </Button>
           </div>
         </form>
       </Content>
@@ -108,6 +117,7 @@ const Button = styled.button`
   padding: 12px 24px;
   font-size: 14px;
   font-weight: 500;
+  margin-left: 10px;
 `;
 
 const Error = styled.p`
